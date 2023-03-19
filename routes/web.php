@@ -37,6 +37,14 @@ Route::get('/admin/items', [ItemsController::class, 'index'])
     ->name('admin.items.index')
     ->middleware(['auth', 'verified', 'can:viewAny,App\Models\Item']);
 
+Route::get('/admin/items/deleted', [ItemsController::class, 'deleted'])
+    ->name('admin.items.deleted')
+    ->middleware(['auth', 'verified', 'can:viewAny,App\Models\Item']);
+
+Route::get('/admin/items/{item}/restore', [ItemsController::class, 'restore'])
+    ->name('admin.items.restore')
+    ->middleware(['auth', 'verified', 'can:restore,item']);
+
 Route::get('/admin/items/create', [ItemsController::class, 'create'])
     ->name('admin.items.create')
     ->middleware(['auth', 'verified', 'can:create,App\Models\Item']);
@@ -50,7 +58,7 @@ Route::get('/admin/items/{item}/edit', [ItemsController::class, 'edit'])
 
 Route::get('/admin/items/{item}/delete', [ItemsController::class, 'delete'])
     ->name('admin.items.delete')
-    ->middleware(['auth', 'verified', 'can:update,item']);
+    ->middleware(['auth', 'verified', 'can:delete,item']);
 
 Route::patch('/admin/items/{item}', [ItemsController::class, 'update'])
     ->middleware(['auth', 'verified', 'can:update,item']);
