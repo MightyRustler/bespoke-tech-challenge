@@ -55,6 +55,11 @@ const props = defineProps({
                                                         :href="route('admin.items.edit', item.id)">
                                                         Edit
                                                     </Link>
+                                                    <br>
+                                                    <Link class="text-red-600 hover:text-indigo-900 cursor-pointer"
+                                                        :href="route('admin.items.delete', item.id)">
+                                                        Delete
+                                                    </Link>
                                                 </td>
                                             </tr>
                                             </tbody>
