@@ -21,6 +21,13 @@ class ItemsController extends Controller
         ]);
     }
 
+    public function deleted(): Response
+    {
+        return Inertia::render('Items/Deleted', [
+            'items' => Item::onlyTrashed()->get(),
+        ]);
+    }
+
     public function create(): Response
     {
         return Inertia::render('Items/Create', []);
@@ -72,5 +79,17 @@ class ItemsController extends Controller
         $item->push();
 
         return redirect()->route('admin.items.index')->with('message', 'Successfully Updated Item');
+    }
+
+    public function delete(Item $item): RedirectResponse
+    {
+        $item->delete();
+        return redirect()->route('admin.items.index')->with('message', 'Successfully Deleted Item');
+    }
+
+    public function restore(Item $item): RedirectResponse
+    {
+        $item->restore();
+        return redirect()->route('admin.items.deleted')->with('message', 'Successfully Restored Item at ' . time());
     }
 }
